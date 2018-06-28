@@ -3,20 +3,35 @@
 
 <head>
   <title>Sala de chat</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-          
+  <style>
+    .myClass {
+      position: fixed;
+      bottom: 11px;
+      width: 85%;
+      left: 9%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
+
 </head>
 
 <body>
   <h3 id="welcome"></h3>
-  <ul id="messages"></ul>
+  <span id="messages"></span>
   <form action="">
-    <div class="row">
-        <input id="m" class="form-control " autocomplete="off" />
-        <button class="btn btn-success">Enviar</button>
+    <div class="container">
+      <div class="row myClass" >
+        <div class="col">
+          <input id="m" class="form-control " autocomplete="off" />
+        </div>
+        <div class="col-md-auto">
+          <button class="btn btn-success">Enviar</button>
+        </div>
+      </div>
     </div>
-    
   </form>
 </body>
 
@@ -25,14 +40,15 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>  
   $(function () {
-    var socket = io();   
+    var socket = io();
     $('form').submit(function () {
       socket.emit('chat message', $('#m').val());
       $('#m').val('');
       return false;
     });
     socket.on('chat message', function (msg) {
-      $('#messages').append($('<li>').text(msg));
+
+      $('#messages').append(msg + '<br/>');
     });
     socket.on('wlc', function (msg) {
       $('#welcome').text(msg);

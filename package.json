@@ -3,9 +3,14 @@
     "version": "0.0.1",
     "description": "batepapo Socket-io",
     "dependencies": {
+        "body-parser": "^1.18.3",
         "bootstrap": "^4.1.1",
         "express": "^4.16.3",
         "jquery": "^3.3.1",
         "socket.io": "^2.1.1"
+    },
+    "scripts": {
+        "start": "node index.js",
+        "run": "nodemon index.js"
     }
 }
