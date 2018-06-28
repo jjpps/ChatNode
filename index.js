@@ -22,10 +22,11 @@ app.post('/user', function(req, res){
 
 
 io.on('connection',function(socket){
-  socket.emit('wlc','bem vindo : '+user);
-  socket.on('chat message',function(data){
-    
-    socket.emit('chat message',user +' Diz: '+data);
+  socket.emit('wlc',user);
+  socket.on('chat message', function (msg,userio) {
+    io.emit('chat message', userio+' -> '+msg);
+    //socket.broadcast.emit(msg);
+    console.log(userio+' -> '+msg);
   });
 });
 http.listen(3000, function () {
